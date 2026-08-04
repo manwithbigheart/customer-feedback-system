@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Register</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="box">
+
+        <h1>Register</h1>
+
+        <form action="/user/register" method="post" onsubmit="return validatePassword()">
+
+            <label>Username</label>
+
+            <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required>
+
+            <label>Email</label>
+
+            <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required>
+
+            <label>Password</label>
+
+            <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+            <label>Confirm Password</label>
+
+            <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    required>
+
+            <button>
+
+                Sign Up
+
+            </button>
+
+        </form>
+
+        <div class="bottom">
+
+            Already have an account?
+
+            <a href="/">
+
+                Log In
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function validatePassword(){
+
+    var password=document.getElementById("password").value;
+
+    var confirmPassword=document.getElementById("confirmPassword").value;
+
+    if(password!=confirmPassword){
+
+        alert("Password and Confirm Password must be same.");
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+
+----------------------------------------------------------------
+
+
+It has two modules:
+
+1. User Module
+
+User Registration
+User Login
+Add Feedback
+Edit Own Feedback
+Logout
+
+
+2. Admin Module
+
+Admin Login
+View All Feedback
+Edit Feedback
+Delete Feedback
+
+
+
+-------------------------------------------
+
+DFD 
+
+
+Browser
+
+↓
+
+Controller
+
+↓
+
+Service
+
+↓
+
+Repository
+
+↓
+
+MySQL
+
+-----------------------------------------------------------
+
+
+Controller receives request.
+
+↓
+
+Service contains business logic.
+
+↓
+
+Repository interacts with database.
+
+↓
+
+Database stores data.
+
+--------------------------------------------------------------------

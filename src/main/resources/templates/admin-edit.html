@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Edit Feedback</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="box" style="width:550px;">
+
+<h1>Edit Feedback</h1>
+
+<form action="/admin/update" method="post">
+
+<input
+type="hidden"
+name="id"
+th:value="${feedback.id}">
+
+<label>
+
+Feedback
+
+</label>
+
+<textarea
+name="feedback"
+required
+th:text="${feedback.feedback}">
+</textarea>
+
+<button type="submit">
+
+Update
+
+</button>
+
+</form>
+
+<div class="bottom">
+
+<a href="/admin/dashboard">
+
+Back to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

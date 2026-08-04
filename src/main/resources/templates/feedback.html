@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Feedback</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="box" style="width:500px;">
+
+	<h1>Feedback</h1>
+
+	<div style="text-align:right; margin-bottom:20px;">
+
+	    <a href="/logout">
+
+	        <button type="button" class="small-btn">
+
+	            Logout
+
+	        </button>
+
+	    </a>
+
+	</div>
+
+<!-- Buttons -->
+
+<div class="action">
+
+<button type="button" onclick="showAdd()">
+
+Add Feedback
+
+</button>
+
+<button type="button" onclick="showEdit()">
+
+Edit Feedback
+
+</button>
+
+</div>
+
+<!-- Feedback Form -->
+
+<form action="/feedback/add" method="post">
+
+<input
+type="hidden"
+name="id"
+th:value="${feedback!=null?feedback.id:0}">
+
+<label>
+
+Your Feedback:
+
+</label>
+
+<textarea
+id="feedbackText"
+name="feedback"
+placeholder="Write your feedback here..."
+required
+th:text="${feedback!=null?feedback.feedback:''}">
+</textarea>
+
+<button
+id="submitBtn">
+
+Submit
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+function showAdd(){
+
+    document.getElementById("feedbackText").value="";
+
+    document.getElementById("submitBtn").innerHTML="Submit";
+
+}
+
+function showEdit(){
+
+    document.getElementById("submitBtn").innerHTML="Update";
+
+}
+
+</script>
+
+</body>
+
+</html>
