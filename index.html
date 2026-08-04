@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Feedback | Project Showcase</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --card-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+  --hero-bg: linear-gradient(135deg, #2563eb, #4f46e5);
+}
+
+body.dark {
+  --bg-primary: #0f172a;
+  --bg-surface: #1e293b;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --card-shadow: 0 10px 30px -5px rgba(0,0,0,0.5);
+  --hero-bg: linear-gradient(135deg, #1e1b4b, #312e81);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--bg-surface) !important;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s ease;
+}
+.navbar-brand { font-weight: 800; letter-spacing: -0.5px; }
+
+/* Hero Section */
+.hero {
+  background: var(--hero-bg);
+  color: #fff;
+  padding: 110px 0 90px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero h1 { font-size: 3.2rem; font-weight: 800; letter-spacing: -1px; }
+
+/* Cards & Components */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.12);
+}
+
+.section-title {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+.section-sub {
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  font-size: 1.05rem;
+}
+
+/* Section Background Alternation */
+.bg-section-alt {
+  background-color: rgba(0,0,0,0.02);
+}
+body.dark .bg-section-alt {
+  background-color: rgba(255,255,255,0.02);
+}
+
+/* Tables in Dark/Light Mode */
+.table {
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+.table-primary {
+  --bs-table-bg: #2563eb;
+  --bs-table-color: #ffffff;
+}
+body.dark .table {
+  --bs-table-bg: var(--bg-surface);
+  --bs-table-color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+/* Code Blocks */
+pre {
+  white-space: pre-wrap;
+  background: rgba(0,0,0,0.04);
+  color: var(--text-main);
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  font-family: 'Fira Code', Consolas, Monaco, monospace;
+}
+body.dark pre {
+  background: #090d16;
+}
+
+/* Screenshot Cards & Interactive Modal */
+.screenshot-container {
+  overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  background: #000;
+}
+.screenshot-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+.screenshot-container:hover .screenshot-img {
+  transform: scale(1.08);
+  opacity: 0.85;
+}
+.screenshot-container::after {
+  content: '\f002';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.screenshot-container:hover::after { opacity: 1; }
+
+/* List items for SRS */
+.list-group-item {
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+/* Footer */
+footer {
+  background: #090d16;
+  color: #94a3b8;
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Back to Top Floating Button */
+#topBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+<body>
+
+<!-- Sticky Header Navigation -->
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+<div class="container">
+  <a class="navbar-brand text-primary" href="#">
+    <i class="fa-solid fa-comments me-2"></i>Customer Feedback
+  </a>
+  <div class="d-flex align-items-center gap-2">
+    <!-- Dark Mode Toggle Button placed on top navbar -->
+    <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 me-2" onclick="toggleDark()" id="themeToggleBtn">
+      <i class="fa-solid fa-moon me-1" id="themeIcon"></i> <span id="themeText">Dark</span>
+    </button>
+    <a class="btn btn-primary btn-sm rounded-pill px-3" href="https://github.com/manwithbigheart/customer-feedback-system" target="_blank">
+      <i class="fab fa-github me-1"></i> GitHub
+    </a>
+  </div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+<div class="container">
+<div class="row align-items-center g-5">
+  <div class="col-lg-7">
+    <span class="badge bg-white text-primary fw-bold px-3 py-2 rounded-pill mb-3">Spring Boot MVC Showcase</span>
+    <h1>Customer Feedback System</h1>
+    <p class="lead opacity-90 my-3">A full-stack application developed for JForce demonstrating secure authentication, session handling, CRUD feedback flows, and administrative oversight.</p>
+    <div class="d-flex gap-3 mt-4">
+      <a href="#srs" class="btn btn-light btn-lg rounded-pill px-4 fw-semibold shadow-sm">Explore Specifications</a>
+      <a href="#screenshots" class="btn btn-outline-light btn-lg rounded-pill px-4">View Screens</a>
+    </div>
+  </div>
+  <div class="col-lg-5 text-center">
+    <i class="fa-solid fa-comments-dollar fa-9x opacity-75"></i>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Requirement Gathering & SRS Section -->
+<section id="srs" class="py-5">
+<div class="container">
+<h2 class="section-title text-center">Requirement Gathering</h2>
+<p class="section-sub text-center">Software Requirement Specification (SRS)</p>
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card p-4 h-100">
+      <h4 class="text-primary mb-3"><i class="fa-solid fa-list-check me-2"></i>Functional Requirements</h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>User Registration & Profile Creation</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>Secure User Login & Session Handling</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>Create and Edit Feedback Entries</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>Dedicated Admin Login Portal</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>Global Feedback Management Dashboard</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>Admin Edit & Delete Privileges</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-circle-check text-success me-2"></i>Safe Logout & Session Invalidation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-4 h-100">
+      <h4 class="text-primary mb-3"><i class="fa-solid fa-gears me-2"></i>Non-Functional Requirements</h4>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-shield-halved text-info me-2"></i>Intuitive & Responsive UI/UX</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-bolt text-info me-2"></i>Fast Query Execution & Page Rendering</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-compass text-info me-2"></i>Streamlined Navigation Workflow</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-key text-info me-2"></i>Session-Based Authentication Protection</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-database text-info me-2"></i>Relational MySQL Data Store</li>
+        <li class="list-group-item bg-transparent"><i class="fa-solid fa-cubes text-info me-2"></i>Clean MVC Architectural Separation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Database Design Section -->
+<section id="database" class="py-5 bg-section-alt">
+<div class="container">
+<h2 class="section-title text-center">Database Design</h2>
+<p class="section-sub text-center">Relational Database Structure & Entity Layout</p>
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card p-4 h-100">
+      <h4 class="mb-3 text-primary"><i class="fa-solid fa-table me-2"></i>User Table</h4>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-primary">
+            <tr>
+              <th>Column Name</th>
+              <th>Data Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>id</code></td><td><span class="badge bg-primary">INT (PK)</span></td></tr>
+            <tr><td><code>username</code></td><td>VARCHAR(100)</td></tr>
+            <tr><td><code>email</code></td><td>VARCHAR(150)</td></tr>
+            <tr><td><code>password</code></td><td>VARCHAR(255)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-4 h-100">
+      <h4 class="mb-3 text-primary"><i class="fa-solid fa-table me-2"></i>Feedback Table</h4>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-primary">
+            <tr>
+              <th>Column Name</th>
+              <th>Data Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>id</code></td><td><span class="badge bg-primary">INT (PK)</span></td></tr>
+            <tr><td><code>feedback</code></td><td>TEXT</td></tr>
+            <tr><td><code>date</code></td><td>DATE</td></tr>
+            <tr><td><code>user_id</code></td><td><span class="badge bg-secondary">INT (FK)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+<div class="container">
+<h2 class="section-title text-center">Core Features</h2>
+<p class="section-sub text-center">Key functional capabilities provided by the application</p>
+<div class="row g-4">
+  <div class="col-md-3">
+    <div class="card p-4 text-center h-100">
+      <i class="fa fa-user-plus fa-3x text-primary mb-3"></i>
+      <h5 class="fw-bold">User Registration</h5>
+      <p class="small text-muted mb-0">Allows new users to create accounts safely.</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-4 text-center h-100">
+      <i class="fa fa-lock fa-3x text-success mb-3"></i>
+      <h5 class="fw-bold">Authentication</h5>
+      <p class="small text-muted mb-0">Session-backed secure user login mechanism.</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-4 text-center h-100">
+      <i class="fa fa-comment fa-3x text-warning mb-3"></i>
+      <h5 class="fw-bold">Feedback Management</h5>
+      <p class="small text-muted mb-0">Submit, review, and update feedback entries.</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-4 text-center h-100">
+      <i class="fa fa-user-shield fa-3x text-danger mb-3"></i>
+      <h5 class="fw-bold">Admin Dashboard</h5>
+      <p class="small text-muted mb-0">Centralized control panel to view and modify entries.</p>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Application Screenshots Section -->
+<section id="screenshots" class="py-5 bg-section-alt">
+<div class="container">
+<h2 class="section-title text-center">Application Screenshots</h2>
+<p class="section-sub text-center">Click on any screenshot to open in full size</p>
+<div class="row g-4">
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="screenshot-container" onclick="openImageModal(this)">
+        <img src="https://lh3.googleusercontent.com/d/16fHaQY9Hu836olY7WSHmpbYP0MTIiE59" referrerpolicy="no-referrer" alt="Login Page" class="screenshot-img">
+      </div>
+      <div class="card-body text-center">
+        <h6 class="fw-bold mb-0">Login Page</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="screenshot-container" onclick="openImageModal(this)">
+        <img src="https://lh3.googleusercontent.com/d/13yfCZmwpM2LPmxlHyU3hOuatVSP0B97Q" referrerpolicy="no-referrer" alt="Registration Page" class="screenshot-img">
+      </div>
+      <div class="card-body text-center">
+        <h6 class="fw-bold mb-0">Registration</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="screenshot-container" onclick="openImageModal(this)">
+        <img src="https://lh3.googleusercontent.com/d/1iAW_JrU0Y8jxzEkTUm6J9I3xJx9EH11x" referrerpolicy="no-referrer" alt="Admin Login Page" class="screenshot-img">
+      </div>
+      <div class="card-body text-center">
+        <h6 class="fw-bold mb-0">Admin Login</h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="card h-100">
+      <div class="screenshot-container" onclick="openImageModal(this)">
+        <img src="https://lh3.googleusercontent.com/d/11nFteVWIbbMtaoXd2NAVnhNIRuZjjENY" referrerpolicy="no-referrer" alt="Admin Dashboard Page" class="screenshot-img">
+      </div>
+      <div class="card-body text-center">
+        <h6 class="fw-bold mb-0">Admin Dashboard</h6>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Image Fullscreen Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-header border-0 text-white">
+        <h5 class="modal-title" id="imageModalTitle">Screenshot Preview</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center p-0">
+        <img id="modalImage" src="" referrerpolicy="no-referrer" class="img-fluid rounded shadow-lg" style="max-height: 85vh; object-fit: contain;" alt="Full size preview">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Architecture & Project Structure -->
+<section class="py-5">
+<div class="container">
+<div class="row g-4">
+  <div class="col-lg-6">
+    <h2 class="section-title">Architecture Flow</h2>
+    <p class="text-muted mb-3">Model-View-Controller Request Flow</p>
+    <div class="card p-4">
+<pre>
+Browser (HTTP Request)
+   ↓
+Controller Layer (@Controller)
+   ↓
+Service Layer (@Service)
+   ↓
+Repository Layer (@Repository)
+   ↓
+MySQL Database
+</pre>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <h2 class="section-title">Project Structure</h2>
+    <p class="text-muted mb-3">Spring Boot Directory Organization</p>
+    <div class="card p-4">
+<pre>
+src/main/java
+ ├── controller
+ ├── service
+ ├── repository
+ └── entity
+src/main/resources
+ ├── templates
+ ├── static
+ └── application.properties
+</pre>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- Tech Stack -->
+<section class="py-5 bg-section-alt">
+<div class="container">
+<h2 class="section-title text-center">Technology Stack</h2>
+<p class="section-sub text-center">Tools and technologies used to build this project</p>
+<div class="row text-center g-4">
+  <div class="col"><div class="card p-3"><i class="fab fa-java fa-3x text-danger mb-2"></i><p class="fw-bold mb-0">Java</p></div></div>
+  <div class="col"><div class="card p-3"><i class="fa fa-leaf fa-3x text-success mb-2"></i><p class="fw-bold mb-0">Spring Boot</p></div></div>
+  <div class="col"><div class="card p-3"><i class="fa fa-database fa-3x text-primary mb-2"></i><p class="fw-bold mb-0">MySQL</p></div></div>
+  <div class="col"><div class="card p-3"><i class="fab fa-html5 fa-3x text-warning mb-2"></i><p class="fw-bold mb-0">HTML/CSS</p></div></div>
+  <div class="col"><div class="card p-3"><i class="fab fa-github fa-3x me-0 mb-2"></i><p class="fw-bold mb-0">GitHub</p></div></div>
+</div>
+</div>
+</section>
+
+<!-- Developer Profile -->
+<section id="contact" class="py-5">
+<div class="container">
+<h2 class="section-title text-center">Developer Profile</h2>
+<p class="section-sub text-center">Contact details & repository references</p>
+<div class="card p-5 text-center mx-auto" style="max-width: 650px;">
+<img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" class="rounded-circle shadow mb-3" style="width:120px;margin:auto">
+<h3 class="fw-bold mb-1">Abdul Rehman Shah</h3>
+<p class="text-muted">Java Developer | Spring Boot | Full Stack Enthusiast</p>
+<div class="d-flex justify-content-center gap-2 my-3">
+  <a class="btn btn-dark rounded-pill px-3" href="https://github.com/manwithbigheart/customer-feedback-system" target="_blank"><i class="fab fa-github me-1"></i> GitHub</a>
+  <a class="btn btn-primary rounded-pill px-3" href="https://www.linkedin.com/in/abdulrehman07/" target="_blank"><i class="fab fa-linkedin me-1"></i> LinkedIn</a>
+  <a class="btn btn-success rounded-pill px-3" href="https://drive.google.com/file/d/1n6tE5vdilxWFUm78YdBnJWeiCC7XA25o/view?usp=sharing" target="_blank"><i class="fa fa-file me-1"></i> Resume</a>
+</div>
+<p class="mb-0 text-muted"><strong>Email:</strong> abdulreheman34@gmail.com</p>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">
+<div class="container">
+<p class="mb-1">© 2026 Customer Feedback System | Developed by Abdul Rehman Shah</p>
+<p class="small text-muted mb-0">Thank you for reviewing this project showcase.</p>
+</div>
+</footer>
+
+<!-- Scroll to Top Floating Button -->
+<button id="topBtn" class="btn btn-primary" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<i class="fa fa-arrow-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Back to top button trigger
+window.onscroll = function() {
+  document.getElementById("topBtn").style.display = window.scrollY > 300 ? "block" : "none";
+};
+
+// Dark Mode Toggle Function
+function toggleDark() {
+  document.body.classList.toggle("dark");
+  const isDark = document.body.classList.contains("dark");
+  
+  // Dynamic UI feedback for Dark Mode Button
+  document.getElementById("themeIcon").className = isDark ? "fa-solid fa-sun me-1" : "fa-solid fa-moon me-1";
+  document.getElementById("themeText").innerText = isDark ? "Light" : "Dark";
+  
+  const toggleBtn = document.getElementById("themeToggleBtn");
+  if (isDark) {
+    toggleBtn.classList.replace("btn-outline-secondary", "btn-outline-light");
+  } else {
+    toggleBtn.classList.replace("btn-outline-light", "btn-outline-secondary");
+  }
+}
+
+// Fullscreen Modal Handler for Screenshots
+function openImageModal(container) {
+  const img = container.querySelector('img');
+  const title = container.parentElement.querySelector('h6').innerText;
+  
+  document.getElementById('modalImage').src = img.src;
+  document.getElementById('imageModalTitle').innerText = title;
+  
+  const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+  modal.show();
+}
+</script>
+
+</body>
+</html>
